@@ -1,0 +1,13 @@
+version: '2'
+services:
+  notebook:
+    image: expts:v1
+    build:
+      context: .
+    environment:
+      - DISPLAY=$DISPLAY
+      - XSOCK=/tmp/.X11-unix/X0
+    ports:
+      - "5555:5555"
+    volumes:
+      - /allen:/allen
