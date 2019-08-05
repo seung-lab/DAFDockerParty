@@ -13,8 +13,8 @@ RUN apt-get -y install xvfb
 RUN apt-get -y install libboost-all-dev libgmp-dev libmpfr-dev libcgal-dev libboost-wave-dev
 ############################################################################
 RUN apt-get -y install vim
-RUN apt-get -y install libassimp-dev
-RUN apt-get -y install libspatialindex-dev
+RUN apt-get -y install libassimp-dev libgl1-mesa-dev mesa-utils libgl1-mesa-glx
+RUN apt-get -y install libspatialindex-dev libblas-dev liblapack-dev
 
 #CONDA
 WORKDIR /conda
@@ -54,7 +54,9 @@ RUN pip install rtree
 RUN pip install shapely
 RUN pip install pymeshfix
 RUN pip install ipyvolume jupyterlab statsmodels pycircstat nose
-RUN pip install MeshParty
+RUN pip install MeshParty analysisdatalink annotationframeworkclient vtkplotter
 
+#EXPOSE 5555
 
+#CMD [ "/bin/bash" ]
 
