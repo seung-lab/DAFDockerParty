@@ -1,12 +1,14 @@
-FROM python:3.7.2
+FROM nvidia/cudagl:10.1-base-ubuntu18.04
+
+#FROM python:3.7.2
 
 #APT_GET
 
 RUN apt-get update
-RUN apt-get install -y --no-install-recommends apt-utils
+RUN apt-get install -y --no-install-recommends apt-utils software-properties-common
 RUN apt-get -y update && \
     apt-get -y install graphviz libxml2-dev python3-cairosvg parallel
-RUN apt-get -y install cmake
+RUN apt-get -y install cmake wget
 #install meshlab and dependencies
 RUN apt-get -y install xvfb
 # CGAL Dependencies ########################################################
@@ -15,6 +17,11 @@ RUN apt-get -y install libboost-all-dev libgmp-dev libmpfr-dev libcgal-dev libbo
 RUN apt-get -y install vim
 RUN apt-get -y install libassimp-dev libgl1-mesa-dev mesa-utils libgl1-mesa-glx
 RUN apt-get -y install libspatialindex-dev libblas-dev liblapack-dev
+
+# install python 3.7.2
+RUN add-apt-repository ppa:deadsnakes/ppa 
+RUN apt update
+RUN apt install python3.7.2
 
 #CONDA
 WORKDIR /conda
@@ -48,7 +55,7 @@ RUN pip install trimesh[all] pytest pyassimp==4.1.3
 RUN /conda/bin/conda clean --all -y
 
 #PIP3
-RUN pip install python-igraph xlrd
+#RUN pip install python-igraph xlrd
 RUN pip install matplotlib
 RUN pip install rtree
 RUN pip install shapely
@@ -56,7 +63,12 @@ RUN pip install pymeshfix
 RUN pip install ipyvolume jupyterlab statsmodels pycircstat nose
 RUN pip install MeshParty analysisdatalink annotationframeworkclient vtkplotter
 
+# if you have a nvidia-gpu
+LABEL com.nvidia.volumes.needed="nvidia-driver"
+ENV PATH /usr/local/nvidia/bin:${PATH}
+ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64:${LD_LIBRARY_PATH}
+
 #EXPOSE 5555
 
-#CMD [ "/bin/bash" ]
+ENTRYPOINT [ "/bin/bash" ]
 
