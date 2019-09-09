@@ -60,8 +60,9 @@ RUN pip install matplotlib
 RUN pip install rtree
 RUN pip install shapely
 RUN pip install pymeshfix
-RUN pip install ipyvolume jupyterlab statsmodels pycircstat nose
-RUN pip install MeshParty analysisdatalink annotationframeworkclient vtkplotter
+RUN pip install ipyvolume jupyterlab statsmodels pycircstat nose 
+RUN pip install MeshParty analysisdatalink annotationframeworkclient vtkplotter k3d
+RUN conda install nodejs
 
 # if you have a nvidia-gpu
 LABEL com.nvidia.volumes.needed="nvidia-driver"
