@@ -11,3 +11,5 @@ services:
       - "5555:5555"
     volumes:
       - /allen:/allen
+      - "$HOME/.Xauthority:/root/.Xauthority:rw"
+    tty: true
